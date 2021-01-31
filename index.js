@@ -13,9 +13,31 @@ let currentMessage = 0
 
 
 // Implement randomiser, but has to pick all items
+// So if a few messages look a bit too similar (shakes things up a bit to not arouse suspicion)
 
-cron.schedule('* * * * * *', () => {
-        // RUNS EVERY SECOND
+
+let randomMessages = []
+
+const getRandomMessage = () => {
+    if (randomMessages.length === 0){
+        randomMessages = [...messages]
+    }
+
+    const randomIndex = Math.floor(Math.random() * randomMessages.length)
+
+    const randomMessage = randomMessages.splice(randomIndex, 1)[0]
+
+    console.log('rm:', randomMessage)
+    return randomMessage
+}
+
+getRandomMessage()
+
+cron.schedule('5 * * * * *', () => {
+        // RUNS EVERY 5 SECONDS
+
+        // Adjust accordingly to annoy your loved one with love.
+
         // FOR SPECIFIC TIMINGS USE
         // https://crontab.guru/
         sendMessage()
