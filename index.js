@@ -15,8 +15,9 @@ let currentMessage = 0
 // Implement randomiser, but has to pick all items
 
 cron.schedule('* * * * * *', () => {
-        console.log('RUn every minute')
-
+        // RUNS EVERY SECOND
+        // FOR SPECIFIC TIMINGS USE
+        // https://crontab.guru/
         sendMessage()
         currentMessage ++
     },
@@ -30,14 +31,16 @@ const sendMessage = () => {
 
     console.log(body)
 
+    sendMessageClient(body)
+
 }
 
-const sendMessageClient = () => {
+const sendMessageClient = (body) => {
 
     client.messages.create({
         to: phoneTo,
         from: phoneFrom,
-        body: messages[currentMessage % messages.length]
+        body
     })
         .then(message => {
             console.log(message.sid)
