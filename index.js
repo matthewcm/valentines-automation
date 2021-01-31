@@ -23,17 +23,13 @@ const getRandomMessage = () => {
         randomMessages = [...messages]
     }
 
+    console.log('Messages left: ', randomMessages.length)
     const randomIndex = Math.floor(Math.random() * randomMessages.length)
 
-    const randomMessage = randomMessages.splice(randomIndex, 1)[0]
-
-    console.log('rm:', randomMessage)
-    return randomMessage
+    return randomMessages.splice(randomIndex, 1)[0]
 }
 
-getRandomMessage()
-
-cron.schedule('5 * * * * *', () => {
+cron.schedule('*/5 * * * * *', () => {
         // RUNS EVERY 5 SECONDS
 
         // Adjust accordingly to annoy your loved one with love.
@@ -49,11 +45,11 @@ cron.schedule('5 * * * * *', () => {
 )
 
 const sendMessage = () => {
-    const body = messages[currentMessage % messages.length]
+    const body = getRandomMessage()
 
     console.log(body)
 
-    sendMessageClient(body)
+    // sendMessageClient(body)
 
 }
 
